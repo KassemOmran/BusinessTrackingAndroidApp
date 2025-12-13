@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">BusinessTrackingAndroidApp</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="inventory">Inventory</string>
+    <string name="number_0">0</string>
+    <string name="expenses">Expenses</string>
+    <string name="documents">Documents</string>
+    <string name="barcode_scan">Barcode Scan</string>
+    <string name="analytics">Analytics</string>
 </resources>

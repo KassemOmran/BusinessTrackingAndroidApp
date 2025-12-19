@@ -1,5 +1,6 @@
 package lb.edu.ul.businesstrackingandroidapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,5 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
     }
+
+
 
 }

@@ -5,7 +5,5 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
 
     </style>
-    <style name="Theme.BusinessTrackingAndroidApp" parent="Base.Theme.BusinessTrackingAndroidApp" >
-        <item name="iconTint">@color/black</item>
-    </style>
+
 </resources>

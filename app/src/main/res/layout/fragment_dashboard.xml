@@ -8,18 +8,22 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:fitsSystemWindows="true"
+
     >
 
     <GridLayout
+
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:columnCount="2"
         android:useDefaultMargins="true"
+        android:layout_gravity="center"
 
 
 
         >
         <androidx.cardview.widget.CardView
+            android:id="@+id/inventoryCard"
             android:layout_width="170dp"
             android:layout_height="160dp"
             app:cardElevation="10dp"
@@ -67,6 +71,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/expensesCard"
             android:layout_width="170dp"
             android:layout_height="160dp"
             app:cardElevation="10dp"
@@ -91,7 +96,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/baseline_payment_48"
-                    android:contentDescription="@string/inventory"
+                    android:contentDescription="@string/expenses"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,6 +110,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/documentsCard"
             android:layout_width="170dp"
             android:layout_height="160dp"
             app:cardElevation="10dp"
@@ -130,7 +136,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/baseline_book_48"
-                    android:contentDescription="@string/inventory"
+                    android:contentDescription="@string/documents"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -144,6 +150,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/scannerCard"
             android:layout_width="170dp"
             android:layout_height="160dp"
             app:cardElevation="10dp"
@@ -182,6 +189,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/analyticsCard"
             android:layout_width="170dp"
             android:layout_height="160dp"
             app:cardElevation="10dp"
@@ -206,7 +214,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/baseline_analytics_48"
-                    android:contentDescription="@string/inventory"
+                    android:contentDescription="@string/analytics"
 
                     />
                 <TextView

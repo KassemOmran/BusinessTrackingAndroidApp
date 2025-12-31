@@ -6,18 +6,23 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 public class InventoryItem {
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public int id;
     @ColumnInfo(name = "name")
-    String name;
+    public String name;
     @ColumnInfo(name = "barcode")
-    String barcode;
+    public String barcode;
     @ColumnInfo(name = "description")
-    String description;
+    public String description;
+    @ColumnInfo(name = "expirydate")
+    public LocalDate expiryDate;
     @ColumnInfo(name = "quantity")
-    int quantity;
+    public int quantity;
     @ColumnInfo(name = "image")
-    String imageUri;
+    public String imageUri;
 }

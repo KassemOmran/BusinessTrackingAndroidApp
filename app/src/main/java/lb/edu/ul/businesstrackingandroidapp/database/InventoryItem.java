@@ -21,6 +21,8 @@ public class InventoryItem {
     public String description;
     @ColumnInfo(name = "expirydate")
     public LocalDate expiryDate;
+    @ColumnInfo(name = "price")
+    public double price;
     @ColumnInfo(name = "quantity")
     public int quantity;
     @ColumnInfo(name = "image")

@@ -3,10 +3,14 @@ package lb.edu.ul.businesstrackingandroidapp.ui.dashboard;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -19,9 +23,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import lb.edu.ul.businesstrackingandroidapp.AddEditInventoryActivity;
 import lb.edu.ul.businesstrackingandroidapp.CaptureAct;
 import lb.edu.ul.businesstrackingandroidapp.InventoryActivity;
 import lb.edu.ul.businesstrackingandroidapp.MainActivity;
+import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
 import lb.edu.ul.businesstrackingandroidapp.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
@@ -69,16 +78,29 @@ public class DashboardFragment extends Fragment {
     }
     ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).show();
+            String barcode = result.getContents();
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(() -> {
+                InventoryItem item = MainActivity.db.inventoryItemDao().getItemByBarcode(barcode);
 
+                if (item != null) {
+                    int id = item.id;
+
+                    // Switch back to main thread for UI work
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        Intent i = new Intent(getContext(), AddEditInventoryActivity.class);
+                        i.putExtra("itemId", id);
+                        startActivity(i);
+                    });
+                } else {
+                    // Handle case where item is not found
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        Toast.makeText(getContext(), "Item not found", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            });
         }
+
 
 
 

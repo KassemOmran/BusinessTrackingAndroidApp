@@ -5,6 +5,7 @@ import static lb.edu.ul.businesstrackingandroidapp.database.Converters.fromLocal
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -15,11 +16,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
@@ -45,6 +50,9 @@ public class InventoyItemsAdapter extends RecyclerView.Adapter<InventoyItemsAdap
         private final TextView expiryDateView;
         private final ImageView itemImageView;
         private final TextView quantityView;
+        private final TextView priceView;
+        private int itemId;
+
         public ViewHolder(View view,Context context, FragmentManager fragmentManager){
             super(view);
             nameView= view.findViewById(R.id.itemNameView);
@@ -52,12 +60,43 @@ public class InventoyItemsAdapter extends RecyclerView.Adapter<InventoyItemsAdap
             itemImageView=view.findViewById(R.id.itemImageView);
             expiryDateView=view.findViewById(R.id.itemExpiryDateView);
             quantityView=view.findViewById(R.id.itemQuantityView);
+            priceView=view.findViewById(R.id.itemPriceView);
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i=new Intent(context,AddEditInventoryActivity.class);
-                    i.putExtra("barcode",barcodeView.getText().toString());
+                    i.putExtra("itemId",itemId);
                     context.startActivity(i);
+                }
+            });
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Do you want to delete this item?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ExecutorService executorService = Executors.newSingleThreadExecutor();
+                            executorService.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    InventoryItem item = MainActivity.db.inventoryItemDao().getItemById(itemId);
+                                    MainActivity.db.inventoryItemDao().delete(item);
+                                }
+                            });
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    }).show();
+                    return false;
                 }
             });
         }
@@ -81,6 +120,12 @@ public class InventoyItemsAdapter extends RecyclerView.Adapter<InventoyItemsAdap
         public TextView getQuantityView() {
             return quantityView;
         }
+        public TextView getPriceView() {
+            return priceView;
+        }
+        public void setItemId(int id){this.itemId = id;}
+
+
     }
 
     @NonNull
@@ -107,8 +152,10 @@ public class InventoyItemsAdapter extends RecyclerView.Adapter<InventoyItemsAdap
 
         holder.getNameView().setText(items.get(position).name);
         holder.getBarcodeView().setText(items.get(position).barcode);
-        holder.getExpiryDateView().setText(expiryDAte);
+        holder.getExpiryDateView().setText("exp: "+expiryDAte);
         holder.getQuantityView().setText(items.get(position).quantity+"");
+        holder.setItemId(items.get(position).id);
+        holder.getPriceView().setText("price: "+items.get(position).price);
 
     }
 
@@ -117,6 +164,7 @@ public class InventoyItemsAdapter extends RecyclerView.Adapter<InventoyItemsAdap
         return items.size();
 
     }
+
 
     public Filter getFilter(){
         return new Filter()

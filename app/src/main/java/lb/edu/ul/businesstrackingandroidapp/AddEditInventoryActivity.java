@@ -3,10 +3,12 @@ package lb.edu.ul.businesstrackingandroidapp;
 import static lb.edu.ul.businesstrackingandroidapp.database.Converters.fromLocalDate;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,11 +39,13 @@ import lb.edu.ul.businesstrackingandroidapp.databinding.ActivityAddEditInventory
 
 public class AddEditInventoryActivity extends AppCompatActivity {
     private ActivityAddEditInventoryBinding binding;
-    private String oldBarcode;
+
     private InventoryItem oldItem;
     private LocalDate selectedExpiryDate;
     private Uri selectedImageUri=null;
     private ActivityResultLauncher<ScanOptions> barcodeLauncher;
+    private Uri photoUri= null;
+    ActivityResultLauncher<Uri> takePhoto;
 
     private int id;
     @Override
@@ -60,6 +64,15 @@ public class AddEditInventoryActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        takePhoto =
+                registerForActivityResult(
+                        new ActivityResultContracts.TakePicture(),
+                        success -> {
+                            if (success) {
+                                selectedImageUri = photoUri;
+                            }
+                        }
+                );
         ActivityResultLauncher<String> pickImage =
                 registerForActivityResult(
                         new ActivityResultContracts.GetContent(),
@@ -76,27 +89,47 @@ public class AddEditInventoryActivity extends AppCompatActivity {
                 pickImage.launch("image/*");
             }
         });
+        binding.cameraImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
 
         Intent i = getIntent();
-        oldBarcode = i.getStringExtra("barcode");
-        id=-1;
+        id = i.getIntExtra("itemId",-1);
 
 
-        if (!(oldBarcode.equals("null"))) {
+        if (id!=-1) {
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    oldItem = InventoryActivity.db.inventoryItemDao().getItemByBarcode(oldBarcode);
-                    binding.itemNameEd.setText(oldItem.name);
-                    binding.itemBarcodeEd.setText(oldItem.barcode);
-                    binding.itemDescriptionEd.setText(oldItem.description);
-                    binding.itemQuantityEd.setText(""+oldItem.quantity);
-                    binding.expiryDateEd.setText(fromLocalDate(oldItem.expiryDate));
-                    binding.addItemImageText.setText(oldItem.imageUri);
-                    selectedImageUri=Uri.parse(oldItem.imageUri);
-                    finish();
+                    oldItem = MainActivity.db.inventoryItemDao().getItemById(id);
+
+
+                    binding.itemPriceEd.setText(""+oldItem.price);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(oldItem!=null){
+                                binding.itemNameEd.setText(oldItem.name);
+                                binding.itemBarcodeEd.setText(oldItem.barcode);
+                                binding.itemDescriptionEd.setText(oldItem.description);
+                                binding.itemQuantityEd.setText(""+oldItem.quantity);
+                                binding.expiryDateEd.setText(fromLocalDate(oldItem.expiryDate));
+                            }
+                            if (oldItem != null && oldItem.imageUri != null && !oldItem.imageUri.isEmpty()) {
+                                selectedImageUri = Uri.parse(oldItem.imageUri);
+                                binding.addItemImageText.setText("Image Selected!");
+                            } else {
+                                selectedImageUri = null;
+                                binding.addItemImageText.setText("No image selected");
+                            }
+
+                        }
+                    });
                 }
             });
 
@@ -104,16 +137,7 @@ public class AddEditInventoryActivity extends AppCompatActivity {
 
          barcodeLauncher= registerForActivityResult(new ScanContract(), result -> {
             if (result.getContents() != null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        binding.itemBarcodeEd.setText(result.getContents());
-                        dialog.dismiss();
-                    }
-                }).show();
-
+                binding.itemBarcodeEd.setText(result.getContents());
             }
 
 
@@ -161,9 +185,10 @@ public class AddEditInventoryActivity extends AppCompatActivity {
         String name = binding.itemNameEd.getText().toString();
         String barcode = binding.itemBarcodeEd.getText().toString();
         LocalDate expiryDate = selectedExpiryDate;
-        String description = binding.itemBarcodeEd.getText().toString();
+        String description = binding.itemDescriptionEd.getText().toString();
         String quantityText=binding.itemQuantityEd.getText().toString().trim();
         String imageUri = selectedImageUri != null ? selectedImageUri.toString() : null;
+        String priceText = binding.itemPriceEd.getText().toString();
 
         if(quantityText.isEmpty()){
             Toast.makeText(this, "Please enter a number", Toast.LENGTH_SHORT).show();
@@ -174,19 +199,26 @@ public class AddEditInventoryActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter a positive number", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(oldItem==null){
+        double price = Double.parseDouble(priceText);
+        if(price<0){
+            Toast.makeText(this, "Please enter a positive number for price", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(id==-1){
             InventoryItem item = new InventoryItem();
             item.name=name;
             item.barcode=barcode;
             item.expiryDate=expiryDate;
             item.description=description;
             item.quantity=quantity;
+            item.price=price;
+            item.imageUri=imageUri;
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    InventoryActivity.db.inventoryItemDao().insertAll(item);
+                    MainActivity.db.inventoryItemDao().insertAll(item);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -200,12 +232,12 @@ public class AddEditInventoryActivity extends AppCompatActivity {
             });
         }
         else {
-            id = oldItem.id;
+
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    InventoryActivity.db.inventoryItemDao().updateInventoryItem(id,name,description, barcode,quantity,  expiryDate,imageUri);
+                    MainActivity.db.inventoryItemDao().updateInventoryItem(id,name,description, barcode,quantity,price  ,expiryDate,imageUri);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -228,6 +260,19 @@ public class AddEditInventoryActivity extends AppCompatActivity {
         options.setOrientationLocked(true);
         options.setCaptureActivity(CaptureAct.class);
         barcodeLauncher.launch(options);
+    }
+    void openCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "item_" + System.currentTimeMillis());
+
+        photoUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values
+        );
+
+        selectedImageUri = photoUri;
+
+        takePhoto.launch(photoUri);
     }
 
 }

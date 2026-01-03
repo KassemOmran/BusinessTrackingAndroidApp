@@ -64,6 +64,34 @@ public class AddEditInventoryActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        EditText expiryDateEd = binding.expiryDateEd;
+        expiryDateEd.setFocusable(false);
+        expiryDateEd.setKeyListener(null);
+
+
+        expiryDateEd.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog picker = new DatePickerDialog(
+                    this,
+                    (view, y, m, d) -> {
+
+                        // LocalDate uses 1-based month, DatePicker gives 0-based
+                        selectedExpiryDate = LocalDate.of(y, m + 1, d);
+
+                        // Display in EditText (ISO format — matches Room converter)
+                        binding.expiryDateEd.setText(selectedExpiryDate.toString());
+                    },
+                    year, month, day
+            );
+
+            picker.show();
+        });
+
         takePhoto =
                 registerForActivityResult(
                         new ActivityResultContracts.TakePicture(),
@@ -119,7 +147,9 @@ public class AddEditInventoryActivity extends AppCompatActivity {
                                 binding.itemDescriptionEd.setText(oldItem.description);
                                 binding.itemQuantityEd.setText(""+oldItem.quantity);
                                 binding.expiryDateEd.setText(fromLocalDate(oldItem.expiryDate));
+                                selectedExpiryDate=oldItem.expiryDate;
                             }
+
                             if (oldItem != null && oldItem.imageUri != null && !oldItem.imageUri.isEmpty()) {
                                 selectedImageUri = Uri.parse(oldItem.imageUri);
                                 binding.addItemImageText.setText("Image Selected!");
@@ -149,34 +179,7 @@ public class AddEditInventoryActivity extends AppCompatActivity {
                 scanCode();
             }
         });
-        EditText expiryDateEd = binding.expiryDateEd;
-        expiryDateEd.setFocusable(false);
-        expiryDateEd.setKeyListener(null);
 
-
-
-
-        expiryDateEd.setOnClickListener(v -> {
-            final Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog picker = new DatePickerDialog(
-                    this,
-                    (view, y, m, d) -> {
-
-                        // LocalDate uses 1-based month, DatePicker gives 0-based
-                        selectedExpiryDate = LocalDate.of(y, m + 1, d);
-
-                        // Display in EditText (ISO format — matches Room converter)
-                        binding.expiryDateEd.setText(selectedExpiryDate.toString());
-                    },
-                    year, month, day
-            );
-
-            picker.show();
-        });
 
     }
 

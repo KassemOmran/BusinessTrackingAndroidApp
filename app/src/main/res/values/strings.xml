@@ -95,4 +95,5 @@
     <string name="save">Save</string>
     <string name="search">Search\n</string>
     <string name="expiry_date">Expiry Date</string>
+    <string name="price">Price</string>
 </resources>

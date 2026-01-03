@@ -9,13 +9,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
+import lb.edu.ul.businesstrackingandroidapp.database.AppDatabase;
 import lb.edu.ul.businesstrackingandroidapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
+    public static AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app_db").build();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

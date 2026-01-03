@@ -28,7 +28,7 @@ public class InventoryActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityInventoryBinding binding;
-    static AppDatabase db;
+
     private InventoyItemsAdapter inventoryAdapter;
 
 
@@ -52,8 +52,8 @@ public class InventoryActivity extends AppCompatActivity {
         });
         RecyclerView rv= findViewById(R.id.itemsRecView);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app_db").build();
-        db.inventoryItemDao().getAllInventoryItems().observe(this, new Observer<List<InventoryItem>>() {
+
+        MainActivity.db.inventoryItemDao().getAllInventoryItems().observe(this, new Observer<List<InventoryItem>>() {
             @Override
             public void onChanged(List<InventoryItem> inventoryItems) {
 

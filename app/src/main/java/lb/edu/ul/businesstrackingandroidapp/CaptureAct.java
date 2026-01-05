@@ -1,6 +1,6 @@
 package lb.edu.ul.businesstrackingandroidapp;
 
-public class CaptureAct extends CaptureActivity
-{
+import com.journeyapps.barcodescanner.CaptureActivity;
 
+public class CaptureAct extends CaptureActivity {
 }

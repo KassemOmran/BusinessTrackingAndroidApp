@@ -15,4 +15,21 @@ public class Converters {
     public static LocalDate toLocalDate(String value) {
         return value == null ? null : LocalDate.parse(value);
     }
-}
+
+
+
+        @TypeConverter
+        public static String fromOrderType(OrderType type) {
+            return type == null ? null : type.name();
+        }
+
+        @TypeConverter
+        public static OrderType toOrderType(String value) {
+            return value == null ? null : OrderType.valueOf(value);
+        }
+
+
+
+
+    }
+

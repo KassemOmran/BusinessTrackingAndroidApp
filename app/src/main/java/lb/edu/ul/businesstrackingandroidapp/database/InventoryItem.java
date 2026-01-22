@@ -4,6 +4,7 @@ import android.media.Image;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
@@ -27,4 +28,7 @@ public class InventoryItem {
     public int quantity;
     @ColumnInfo(name = "image")
     public String imageUri;
+    @Ignore
+    public int orderQuantity;
+
 }

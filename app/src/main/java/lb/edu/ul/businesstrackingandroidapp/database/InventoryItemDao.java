@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,4 +25,6 @@ public interface InventoryItemDao {
     @Query("UPDATE inventoryitem SET name = :name, description = :description, barcode = :barcode, quantity = :quantity,price = :price, expiryDate = :expiryDate , image=:imageUri WHERE id=:id")
     void updateInventoryItem(int id, String name, String description, String barcode, int quantity,double price, LocalDate expiryDate,String imageUri);
 
+    @Update
+    void update(InventoryItem item);
 }

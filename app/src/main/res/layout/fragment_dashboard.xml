@@ -175,7 +175,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/baseline_barcode_48"
-                    android:contentDescription="@string/inventory"
+                    android:contentDescription="@string/barcode_scan"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -227,7 +227,45 @@
 
             </LinearLayout>
 
+
         </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/placeOrderCard"
+            android:layout_width="170dp"
+            android:layout_height="160dp"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="20dp"
+            app:cardMaxElevation="12dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="20dp"
+                android:layout_gravity="center"
+                >
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/baseline_shopping_cart_48"
+                    android:contentDescription="@string/place_order"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/place_order"
+                    android:textSize="12sp"
+                    />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
 
 

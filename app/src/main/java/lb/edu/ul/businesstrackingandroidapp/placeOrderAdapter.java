@@ -1,4 +1,4 @@
-package lb.edu.ul.businesstrackingandroidapp.ui;
+package lb.edu.ul.businesstrackingandroidapp;
 
 import static lb.edu.ul.businesstrackingandroidapp.database.Converters.fromLocalDate;
 
@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import lb.edu.ul.businesstrackingandroidapp.R;
 import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
 
 

@@ -1,4 +1,4 @@
-package lb.edu.ul.businesstrackingandroidapp.ui;
+package lb.edu.ul.businesstrackingandroidapp;
 
 
 import android.os.Bundle;
@@ -8,20 +8,14 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import androidx.lifecycle.Observer;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import java.util.List;
 
-import lb.edu.ul.businesstrackingandroidapp.MainActivity;
-import lb.edu.ul.businesstrackingandroidapp.R;
-import lb.edu.ul.businesstrackingandroidapp.database.AppDatabase;
 import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
-import lb.edu.ul.businesstrackingandroidapp.databinding.ActivityInventoryBinding;
 import lb.edu.ul.businesstrackingandroidapp.databinding.ActivityPlaceOrderBinding;
+import lb.edu.ul.businesstrackingandroidapp.PlaceOrderAdapter;
 
 public class PlaceOrderActivity extends AppCompatActivity {
 

@@ -97,4 +97,7 @@
     <string name="expiry_date">Expiry Date</string>
     <string name="price">Price</string>
     <string name="place_order">Place Order</string>
+    <string name="title_activity_documents">DocumentsActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

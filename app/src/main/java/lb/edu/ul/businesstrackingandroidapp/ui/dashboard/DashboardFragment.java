@@ -28,6 +28,7 @@ import lb.edu.ul.businesstrackingandroidapp.MainActivity;
 import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
 import lb.edu.ul.businesstrackingandroidapp.databinding.FragmentDashboardBinding;
 import lb.edu.ul.businesstrackingandroidapp.PlaceOrderActivity;
+import lb.edu.ul.businesstrackingandroidapp.documents.DocumentsActivity;
 
 public class DashboardFragment extends Fragment {
 
@@ -47,6 +48,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         scannerCard = binding.scannerCard;
 
         scannerCard.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +68,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), PlaceOrderActivity.class);
+                startActivity(i);
+            }
+        });
+        binding.documentsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), DocumentsActivity.class);
                 startActivity(i);
             }
         });

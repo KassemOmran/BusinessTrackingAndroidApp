@@ -2,7 +2,10 @@ package lb.edu.ul.businesstrackingandroidapp.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.lifecycle.LiveData;
+
 
 import java.util.List;
 
@@ -20,7 +23,7 @@ public interface OrderDao {
     default void insertOrderWithItems(
             Order order,
             List<OrderItem> items,
-            InventoryDao inventoryDao
+            InventoryItemDao inventoryItemDao
     ) {
         long orderId = insertOrder(order);
 
@@ -29,7 +32,7 @@ public interface OrderDao {
             insertOrderItem(item);
 
             InventoryItem inventoryItem =
-                    inventoryDao.getItemById(item.itemId);
+                    inventoryItemDao.getItemById(item.itemId);
 
             if (order.orderType == OrderType.OUTGOING) {
                 inventoryItem.quantity -= item.quantity;
@@ -37,9 +40,14 @@ public interface OrderDao {
                 inventoryItem.quantity += item.quantity;
             }
 
-            inventoryDao.update(inventoryItem);
+            inventoryItemDao.update(inventoryItem);
         }
     }
-
+    @Query("SELECT * FROM orders")
+    LiveData<List<Order>> getAllOrders();
+    @Query("SELECT * FROM order_items WHERE orderId = :orderID")
+    List<OrderItem> getAllOrderItemForOrder(int orderID);
+    @Query("SELECT * FROM orders WHERE id= :orderId")
+    Order getOrderById(int orderId);
 }
 

@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -55,9 +56,11 @@ public class AddEditInventoryActivity extends AppCompatActivity {
         binding = ActivityAddEditInventoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
-        EdgeToEdge.enable(this);
-        EdgeToEdge.enable(this);
+        Toolbar toolbar = binding.toolbar.toolbar;
+        setSupportActionBar(binding.toolbar.getRoot());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -129,7 +132,7 @@ public class AddEditInventoryActivity extends AppCompatActivity {
 
 
         if (id!=-1) {
-
+            getSupportActionBar().setTitle("Edit Item");
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {
                 @Override
@@ -163,6 +166,9 @@ public class AddEditInventoryActivity extends AppCompatActivity {
                 }
             });
 
+        }
+        else {
+            getSupportActionBar().setTitle("Add New Item");
         }
 
          barcodeLauncher= registerForActivityResult(new ScanContract(), result -> {

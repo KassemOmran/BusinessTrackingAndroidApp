@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 
 
     @PrimaryKey(autoGenerate = true)
-    public int orderId;
+    public int id;
 
     @ColumnInfo(name = "order_type")
     public OrderType orderType;
@@ -19,6 +19,8 @@ import androidx.room.PrimaryKey;
 
     @ColumnInfo(name = "order_date")
     public long orderDate; // System.currentTimeMillis()
+
 }
+
 
 

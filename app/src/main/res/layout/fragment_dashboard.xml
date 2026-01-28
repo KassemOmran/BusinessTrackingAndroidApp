@@ -71,45 +71,6 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/expensesCard"
-            android:layout_width="170dp"
-            android:layout_height="160dp"
-            app:cardElevation="10dp"
-            app:cardCornerRadius="20dp"
-            app:cardMaxElevation="12dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            android:layout_gravity="center"
-
-
-
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:paddingVertical="20dp"
-                >
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/baseline_payment_48"
-                    android:contentDescription="@string/expenses"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/expenses"
-                    android:textSize="12sp"
-
-                    />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
             android:id="@+id/documentsCard"
             android:layout_width="170dp"
             android:layout_height="160dp"

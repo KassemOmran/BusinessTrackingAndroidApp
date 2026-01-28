@@ -22,12 +22,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import lb.edu.ul.businesstrackingandroidapp.AddEditInventoryActivity;
+import lb.edu.ul.businesstrackingandroidapp.Analytics;
 import lb.edu.ul.businesstrackingandroidapp.CaptureAct;
 import lb.edu.ul.businesstrackingandroidapp.InventoryActivity;
 import lb.edu.ul.businesstrackingandroidapp.MainActivity;
 import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
 import lb.edu.ul.businesstrackingandroidapp.databinding.FragmentDashboardBinding;
 import lb.edu.ul.businesstrackingandroidapp.PlaceOrderActivity;
+import lb.edu.ul.businesstrackingandroidapp.documents.DocumentsActivity;
 
 public class DashboardFragment extends Fragment {
 
@@ -47,6 +49,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         scannerCard = binding.scannerCard;
 
         scannerCard.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +69,20 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), PlaceOrderActivity.class);
+                startActivity(i);
+            }
+        });
+        binding.documentsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), DocumentsActivity.class);
+                startActivity(i);
+            }
+        });
+        binding.analyticsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), Analytics.class);
                 startActivity(i);
             }
         });

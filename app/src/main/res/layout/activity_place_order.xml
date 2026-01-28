@@ -4,62 +4,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    >
 
-    <!-- 1️⃣ Title -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+    <!-- 1️⃣ Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Place Order"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
 
-    <!-- 2️⃣ Order Type -->
-    <RadioGroup
-        android:id="@+id/orderTypeGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
 
-        <RadioButton
-            android:id="@+id/rbOutgoing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Outgoing"/>
 
-        <RadioButton
-            android:id="@+id/rbIncoming"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Incoming"/>
-    </RadioGroup>
+            />
 
-    <!-- 3️⃣ Inventory List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/placeOrderRV"
-        android:layout_width="0dp"
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/orderTypeGroup"
-        app:layout_constraintBottom_toTopOf="@id/placeOrderBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- 4️⃣ Place Order Button -->
-    <Button
-        android:id="@+id/placeOrderBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Place Order"
-        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:padding="16dp"
+        >
+
+        <!-- Order Type -->
+        <RadioGroup
+            android:id="@+id/orderTypeGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbOutgoing"
+                android:text="Outgoing"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbIncoming"
+                android:text="Incoming"/>
+        </RadioGroup>
+
+        <!-- Inventory List (TAKES ALL SPACE) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/placeOrderRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Place Order Button -->
+        <Button
+            android:id="@+id/placeOrderBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place Order"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

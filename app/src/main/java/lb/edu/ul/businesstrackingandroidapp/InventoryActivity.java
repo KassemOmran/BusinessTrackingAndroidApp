@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,7 +40,11 @@ public class InventoryActivity extends AppCompatActivity {
         binding = ActivityInventoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        Toolbar toolbar = binding.toolbar.toolbar;
+        setSupportActionBar(binding.toolbar.getRoot());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+        getSupportActionBar().setTitle("Inventory");
 
 
         binding.addItemButton.setOnClickListener(new View.OnClickListener() {

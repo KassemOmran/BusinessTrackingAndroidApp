@@ -9,4 +9,13 @@
     <style name="Theme.BusinessTrackingAndroidApp" parent="Base.Theme.BusinessTrackingAndroidApp">
 
     </style>
+
+    <style name="Theme.BusinessTrackingAndroidApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.BusinessTrackingAndroidApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.BusinessTrackingAndroidApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -1,6 +1,7 @@
 package lb.edu.ul.businesstrackingandroidapp;
 
 import android.os.Bundle;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);
 
     }
 

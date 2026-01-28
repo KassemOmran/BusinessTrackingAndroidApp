@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import lb.edu.ul.businesstrackingandroidapp.AddEditInventoryActivity;
+import lb.edu.ul.businesstrackingandroidapp.Analytics;
 import lb.edu.ul.businesstrackingandroidapp.CaptureAct;
 import lb.edu.ul.businesstrackingandroidapp.InventoryActivity;
 import lb.edu.ul.businesstrackingandroidapp.MainActivity;
@@ -75,6 +76,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), DocumentsActivity.class);
+                startActivity(i);
+            }
+        });
+        binding.analyticsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), Analytics.class);
                 startActivity(i);
             }
         });

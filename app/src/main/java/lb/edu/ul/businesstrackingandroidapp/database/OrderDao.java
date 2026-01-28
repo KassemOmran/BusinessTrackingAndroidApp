@@ -49,5 +49,12 @@ public interface OrderDao {
     List<OrderItem> getAllOrderItemForOrder(int orderID);
     @Query("SELECT * FROM orders WHERE id= :orderId")
     Order getOrderById(int orderId);
+    @Query("SELECT SUM(total_price) FROM orders WHERE order_type = :type AND order_date BETWEEN :start AND :end")
+    Double getTotalSalesByDateRange(
+            OrderType type,
+            long start,
+            long end
+    );
+
 }
 

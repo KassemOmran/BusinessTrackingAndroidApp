@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BusinessTrackingAndroidApp">
         <activity
+            android:name=".ReportResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".documents.OrderDetailsActivity"
             android:exported="false"
             android:theme="@style/Theme.BusinessTrackingAndroidApp" />
@@ -56,6 +59,12 @@
             android:name=".CaptureAct"
             android:exported="false"
             android:label="@string/title_activity_capture" />
+        <activity
+            android:name=".Dialog_filter"
+            android:exported="false" />
+        <activity
+            android:name=".Analytics"
+            android:exported="false" />
         <activity
             android:name=".IntroActivity"
             android:exported="true">

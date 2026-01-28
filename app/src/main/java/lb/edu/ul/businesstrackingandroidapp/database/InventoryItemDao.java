@@ -24,6 +24,10 @@ public interface InventoryItemDao {
     InventoryItem getItemById(int id);
     @Query("UPDATE inventoryitem SET name = :name, description = :description, barcode = :barcode, quantity = :quantity,price = :price, expiryDate = :expiryDate , image=:imageUri WHERE id=:id")
     void updateInventoryItem(int id, String name, String description, String barcode, int quantity,double price, LocalDate expiryDate,String imageUri);
+    @Query("SELECT * FROM InventoryItem WHERE quantity <= :threshold")
+    List<InventoryItem> getLowStockItems(int threshold);
+    @Query("SELECT * FROM InventoryItem WHERE expiryDate <= :limitDate")
+    List<InventoryItem> getExpiringItems(LocalDate limitDate);
 
     @Update
     void update(InventoryItem item);

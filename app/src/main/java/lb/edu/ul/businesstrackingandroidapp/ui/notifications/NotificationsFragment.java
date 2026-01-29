@@ -85,18 +85,22 @@ public class NotificationsFragment extends Fragment {
                         }
 
                         // ⏰ EXPIRY
-                        long daysLeft =
-                                ChronoUnit.DAYS.between(today, item.expiryDate);
+                        if (item.expiryDate != null) {
 
-                        if (daysLeft >= 0 && daysLeft <= expiryDays) {
-                            notifications.add(
-                                    new NotificationItem(
-                                            NotificationItem.TYPE_EXPIRY,
-                                            "Expiring soon",
-                                            item.name + " expires in " + daysLeft + " days"
-                                    )
-                            );
+                            long daysLeft =
+                                    ChronoUnit.DAYS.between(today, item.expiryDate);
+
+                            if (daysLeft >= 0 && daysLeft <= expiryDays) {
+                                notifications.add(
+                                        new NotificationItem(
+                                                NotificationItem.TYPE_EXPIRY,
+                                                "Expiring soon",
+                                                item.name + " expires in " + daysLeft + " days"
+                                        )
+                                );
+                            }
                         }
+
                     }
 
                     adapter.setNotifications(notifications);

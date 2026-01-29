@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,15 +35,23 @@ public class InventoyItemsAdapter extends RecyclerView.Adapter<InventoyItemsAdap
     private List<InventoryItem> itemsFull;
     Context context;
     FragmentManager fragmentManager;
-    public InventoyItemsAdapter(Context context, List<InventoryItem> items, FragmentManager fragmentManager){
+    public InventoyItemsAdapter(Context context, FragmentManager fragmentManager) {
         this.context = context;
         this.fragmentManager = fragmentManager;
+        this.items = new ArrayList<>();
+        this.itemsFull = new ArrayList<>();
+    }
+    public void setItems(List<InventoryItem> newItems) {
+        items.clear();
+        items.addAll(newItems);
 
-        this.items = new ArrayList<>(items);       // create a new list for displayed items
-        this.itemsFull = new ArrayList<>(items);   // create a **separate** copy for backup
+        itemsFull.clear();
+        itemsFull.addAll(newItems);
 
         notifyDataSetChanged();
     }
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameView;

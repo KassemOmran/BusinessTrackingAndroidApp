@@ -54,4 +54,27 @@
             app:summaryOff="@string/attachment_summary_off" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Notifications">
+
+        <!-- Low stock threshold -->
+        <EditTextPreference
+            android:key="low_stock_threshold"
+            android:title="Low stock alert"
+            android:summary="Notify when item quantity is low"
+            android:dialogTitle="Low stock threshold"
+            android:defaultValue="5"
+            android:inputType="number" />
+
+        <!-- Expiry warning -->
+        <EditTextPreference
+            android:key="expiry_warning_days"
+            android:title="Expiry alert"
+            android:summary="Notify before product expires"
+            android:dialogTitle="Expiry warning days"
+            android:defaultValue="7"
+            android:inputType="number" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

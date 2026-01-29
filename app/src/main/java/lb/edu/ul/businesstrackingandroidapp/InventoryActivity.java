@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,15 +56,15 @@ public class InventoryActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        inventoryAdapter=new InventoyItemsAdapter(InventoryActivity.this,getSupportFragmentManager());
         RecyclerView rv= findViewById(R.id.itemsRecView);
         rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(inventoryAdapter);
 
         MainActivity.db.inventoryItemDao().getAllInventoryItems().observe(this, new Observer<List<InventoryItem>>() {
             @Override
             public void onChanged(List<InventoryItem> inventoryItems) {
-
-                inventoryAdapter=new InventoyItemsAdapter(InventoryActivity.this,inventoryItems,getSupportFragmentManager());
-                rv.setAdapter(inventoryAdapter);
+                inventoryAdapter.setItems(inventoryItems);
             }
         });
     }

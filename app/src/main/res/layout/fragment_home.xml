@@ -1,30 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/nav_view"
-        android:layout_marginBottom="-2dp">
-
         <TextView
             android:id="@+id/homeTextView"
-            android:padding="20dp"
+            android:padding="10dp"
             android:layout_marginTop="75dp"
             android:layout_width="match_parent"
             android:layout_height="203dp"
-            android:text="string textView" />
-
-        <ImageView
-            android:id="@+id/homeImageView"
+            android:textSize="20sp"
+            android:text="string textView"
+            android:background="@color/blue_dark"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"
+            />
+        <LinearLayout
+            android:id="@+id/notificationsLayout"
             android:layout_width="match_parent"
-            android:layout_height="203dp"
-            android:layout_marginTop="300dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="20dp"
+            android:visibility="gone"
 
+            >
+            <ImageView
+                android:id="@+id/homeImageView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
 
-    </FrameLayout>
-</FrameLayout>
+                android:src="@drawable/ic_warning"
+                />
+            <Button
+                android:id="@+id/checkNotificationsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check Notifications"
+                android:textColor="@color/white"
+                android:backgroundTint="@android:color/holo_red_dark"
+                />
+
+        </LinearLayout>
+</LinearLayout>

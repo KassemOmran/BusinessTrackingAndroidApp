@@ -78,7 +78,7 @@ import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
 
             holder.itemImageView.setImageResource(R.drawable.baseline_inventory_48);
             holder.itemNameView.setText(item.name);
-            holder.itemQuantityAvailable.setText("Available Quantity: " + item.quantity);
+            holder.itemQuantityAvailable.setText("Available: " + item.quantity);
             holder.itemExpiryDateView.setText("exp: " + fromLocalDate(item.expiryDate));
             holder.itemPriceView.setText("price: " + item.price);
 
@@ -97,7 +97,7 @@ import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
 
                     item.orderQuantity = entered;
 
-                    // ❌ ERROR WHILE TYPING (OUTGOING ONLY)
+
                     if (isOutgoing && entered > item.quantity) {
                         holder.itemQuantity.setError("Quantity exceeds available stock");
                     } else {

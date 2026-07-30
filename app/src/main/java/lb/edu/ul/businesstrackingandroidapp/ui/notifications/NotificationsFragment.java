@@ -73,7 +73,7 @@ public class NotificationsFragment extends Fragment {
 
                     for (InventoryItem item : items) {
 
-                        // 🔴 LOW STOCK
+                        //  LOW STOCK
                         if (item.quantity <= lowStockThreshold) {
                             notifications.add(
                                     new NotificationItem(
@@ -84,7 +84,7 @@ public class NotificationsFragment extends Fragment {
                             );
                         }
 
-                        // ⏰ EXPIRY
+                        //  EXPIRY
                         if (item.expiryDate != null) {
 
                             long daysLeft =
@@ -107,9 +107,4 @@ public class NotificationsFragment extends Fragment {
                 });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }

@@ -27,13 +27,9 @@ import lb.edu.ul.businesstrackingandroidapp.database.InventoryItem;
 import lb.edu.ul.businesstrackingandroidapp.databinding.ActivityInventoryBinding;
 
 public class InventoryActivity extends AppCompatActivity {
-
     private AppBarConfiguration appBarConfiguration;
     private ActivityInventoryBinding binding;
-
     private InventoyItemsAdapter inventoryAdapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +66,6 @@ public class InventoryActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.inventory_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
@@ -90,10 +85,4 @@ public class InventoryActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-
-
-
-
-
 }

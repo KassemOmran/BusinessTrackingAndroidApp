@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
- @Entity (tableName = "orders")
- public class Order {
+@Entity (tableName = "orders")
+public class Order {
 
 
     @PrimaryKey(autoGenerate = true)

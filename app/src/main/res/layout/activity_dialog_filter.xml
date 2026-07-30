@@ -12,22 +12,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Category Label -->
-        <TextView
-            android:id="@+id/tvCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-
-        <!-- Category Spinner -->
-        <Spinner
-            android:id="@+id/spCategory"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:spinnerMode="dropdown"/>
 
         <!-- Date Range Label -->
         <TextView

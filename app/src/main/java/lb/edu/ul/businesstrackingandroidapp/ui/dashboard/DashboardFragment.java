@@ -106,29 +106,18 @@ public class DashboardFragment extends Fragment {
                 if (item != null) {
                     int id = item.id;
 
-                    // Switch back to main thread for UI work
                     new Handler(Looper.getMainLooper()).post(() -> {
                         Intent i = new Intent(getContext(), AddEditInventoryActivity.class);
                         i.putExtra("itemId", id);
                         startActivity(i);
                     });
                 } else {
-                    // Handle case where item is not found
                     new Handler(Looper.getMainLooper()).post(() -> {
                         Toast.makeText(getContext(), "Item not found", Toast.LENGTH_SHORT).show();
                     });
                 }
             });
         }
-
-
-
-
     });
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }

@@ -8,19 +8,13 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:fitsSystemWindows="true"
-
     >
-
     <GridLayout
-
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:columnCount="2"
         android:useDefaultMargins="true"
         android:layout_gravity="center"
-
-
-
         >
         <androidx.cardview.widget.CardView
             android:id="@+id/inventoryCard"
@@ -32,9 +26,6 @@
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
             android:layout_gravity="center"
-
-
-
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,8 +119,6 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:paddingVertical="20dp"
-
-
                 android:layout_gravity="center"
                 >
                 <ImageView
@@ -185,10 +174,7 @@
                     android:textSize="12sp"
 
                     />
-
             </LinearLayout>
-
-
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/placeOrderCard"
@@ -222,14 +208,7 @@
                     android:text="@string/place_order"
                     android:textSize="12sp"
                     />
-
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
-
-
-
-
-
     </GridLayout>
 </LinearLayout>

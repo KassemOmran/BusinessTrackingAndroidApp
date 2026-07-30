@@ -47,7 +47,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
         RecyclerView recyclerView = binding.placeOrderRV;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Radio buttons
         binding.rbOutgoing.setChecked(true);
 
         binding.orderTypeGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -65,7 +64,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                 });
 
-        // ✅ PLACE ORDER BUTTON
         binding.placeOrderBtn.setOnClickListener(v -> placeOrder());
     }
 
@@ -83,46 +81,39 @@ public class PlaceOrderActivity extends AppCompatActivity {
             List<OrderItem> orderItems= new ArrayList<>();
             orderItems.clear();
             for (InventoryItem item : items) {
-                OrderItem i= new OrderItem();
-                i.orderId=order.id;
-                i.itemId= item.id;
-                i.quantity= item.orderQuantity;
-                orderItems.add(i);
 
-                if (item.orderQuantity <= 0) continue;
+                if (item.orderQuantity > 0) {
+                    if (item.orderQuantity <= 0) continue;
 
-                // ❌ FINAL VALIDATION
-                if (isOutgoing && item.orderQuantity > item.quantity) {
-                    runOnUiThread(() ->
-                            binding.placeOrderBtn.setError("Invalid quantity detected"));
-                    return;
+
+                    if (isOutgoing && item.orderQuantity > item.quantity) {
+                        runOnUiThread(() ->
+                                binding.placeOrderBtn.setError("Invalid quantity detected"));
+                        return;
+                    }
+
+
+                    OrderItem i = new OrderItem();
+                    i.orderId = order.id;
+                    i.itemId = item.id;
+                    i.quantity = item.orderQuantity;
+                    orderItems.add(i);
+
+
+                    totalPrice += item.price * item.orderQuantity;
+
                 }
 
-
-                // ✅ APPLY CHANGE
-                totalPrice+=item.price * item.orderQuantity;
-                if (isOutgoing) {
-                    item.quantity -= item.orderQuantity;
-                } else {
-                    item.quantity += item.orderQuantity;
-                }
-                MainActivity.db.inventoryItemDao().update(item);
 
             }
             order.totalPrice = totalPrice;
             MainActivity.db.orderDao().insertOrderWithItems(order,orderItems,MainActivity.db.inventoryItemDao());
 
 
-            // ✅ SUCCESS → BACK TO DASHBOARD
             runOnUiThread(() -> {
-                finish(); // returns to dashboard
+                finish();
             });
-
         }).start();
-
-
-
-
     }
 }
 

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     >
 
-    <!-- 1️⃣ Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -20,8 +19,6 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar"
-
-
             />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,7 +31,7 @@
         android:padding="16dp"
         >
 
-        <!-- Order Type -->
+
         <RadioGroup
             android:id="@+id/orderTypeGroup"
             android:layout_width="wrap_content"
@@ -55,7 +52,6 @@
                 android:text="Incoming"/>
         </RadioGroup>
 
-        <!-- Inventory List (TAKES ALL SPACE) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/placeOrderRV"
             android:layout_width="match_parent"
@@ -63,7 +59,6 @@
             android:layout_weight="1"
             android:layout_marginTop="16dp"/>
 
-        <!-- Place Order Button -->
         <Button
             android:id="@+id/placeOrderBtn"
             android:layout_width="match_parent"

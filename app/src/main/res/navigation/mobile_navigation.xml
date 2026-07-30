@@ -25,6 +25,6 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="lb.edu.ul.businesstrackingandroidapp.ui.settings.SettingsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

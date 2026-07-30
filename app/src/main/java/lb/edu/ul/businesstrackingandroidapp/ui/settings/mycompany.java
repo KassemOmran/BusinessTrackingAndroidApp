@@ -23,7 +23,7 @@ public class mycompany extends AppCompatActivity {
     private Button picture;
     private Uri cameraImageUri;
 
-    // ✅ MUST be here (class level)
+
     private ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),

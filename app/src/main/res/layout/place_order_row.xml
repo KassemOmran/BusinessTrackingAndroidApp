@@ -1,6 +1,6 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
 
     android:paddingVertical="10dp"
 
@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:gravity="center_vertical"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:orientation="vertical"
 
             android:paddingStart="10dp">
@@ -31,15 +31,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/item_name"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
 
             <TextView
                 android:id="@+id/itemQuantityAvailable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Available Quantity:"
-                android:textSize="20sp" />
+                android:text="Available:"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/itemExpiryDateView"

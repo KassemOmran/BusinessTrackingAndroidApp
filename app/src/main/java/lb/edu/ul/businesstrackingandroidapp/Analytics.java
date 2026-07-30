@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -28,14 +29,18 @@ public class Analytics extends AppCompatActivity {
         binding = ActivityAnalyticsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Adjust for system bars
+        Toolbar toolbar = binding.toolbar.toolbar;
+        setSupportActionBar(binding.toolbar.getRoot());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+        getSupportActionBar().setTitle("Analytics");
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Spinner setup (list of reports)
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.list_Reports,
@@ -44,7 +49,6 @@ public class Analytics extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.listReports.setAdapter(adapter);
 
-        // Show filter dialog when user selects a custom report
         binding.listReports.setOnItemClickListener((parent, view, position, id) -> {
             String selectedItem = parent.getItemAtPosition(position).toString();
             Toast.makeText(Analytics.this, "You selected: " + selectedItem, Toast.LENGTH_SHORT).show();
@@ -64,24 +68,15 @@ public class Analytics extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
 
-        Spinner spCategory = dialog.findViewById(R.id.spCategory);
+
         RadioGroup radioGroup = dialog.findViewById(R.id.radioGroupDates);
         Button btnOk = dialog.findViewById(R.id.btnOk);
 
-        // Example categories
-        String[] categories = {"ALL", "Food", "Drinks", "Bills"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                categories
-        );
-        spCategory.setAdapter(adapter);
+
 
         btnOk.setOnClickListener(v -> {
-            // Get selected category
-            String category = spCategory.getSelectedItem().toString();
 
-            // Get selected date range
+
             int selectedId = radioGroup.getCheckedRadioButtonId();
             if (selectedId == -1) {
                 Toast.makeText(Analytics.this, "Please select a date range", Toast.LENGTH_SHORT).show();
@@ -92,7 +87,6 @@ public class Analytics extends AppCompatActivity {
 
             dialog.dismiss();
 
-            // Open fragment and pass data
             openSalesByDateFragment( dateRange);
         });
 
